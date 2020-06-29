@@ -126,8 +126,8 @@ const App = () => {
       <Header course={course.name} />
       <Content parts={course.parts} />
       <Total parts={course.parts} />
-      <Hello name="Bill" age="18" />
       <Hello name={name} age={age} />
+      <Hello name="Bill" age="18" />
       <h3>useState</h3>
       <Display counter={counter}></Display>
       <Button handleClick={handleClick} text="plus" />
