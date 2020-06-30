@@ -1,31 +1,35 @@
-import React, { useState } from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactDOM from 'react-dom'
+import axios from 'axios'
 import Note from './components/Note'
 
-const notes = [
-  {
-    id: 1,
-    content: 'HTML is easy',
-    date: '2019-05-30T17:30:31.098Z',
-    important: true
-  },
-  {
-    id: 2, 
-    content: 'Browser can execute html',
-    date: '2019-05-30T18:39:34.091Z',
-    important: false
-  },
-  {
-    id: 3,
-    content: 'GET and POST are the most important methods of HTTP protocol',
-    date: '2019-05-30T19:20:14.298Z',
-    important: true
+// const xhttp = new XMLHttpRequest()
+// xhttp.onreadystatechange = function() {
+//   if(this.readyState == 4 && this.status == 200) {
+//     const data = JSON.parse(this.responseText)
+//   }
+// }
+// xhttp.open('GET', '/data.json', true)
+// xhttp.send()
+
+const App = () => {
+  const [notes, setNotes] = useState([])
+  const [newNote, setNewNote] = useState('')
+  const [showAll, setShowAll] = useState(true)
+
+  const hook = () => {
+    console.log('effected')
+    axios
+      .get('http://localhost:3001/notes')
+      .then(res => {
+        console.log('promise fullfilled')
+        setNotes(res.data)
+      })
   }
-]
 
-const App = (props) => {
-  const [notes, setNotes] = useState(props.notes)
+  useEffect(hook, [])
 
+  console.log('rendering notes')
   return (
     <div>
       <h1>Notes</h1>
@@ -38,7 +42,5 @@ const App = (props) => {
   )
 }
 
-ReactDOM.render(
-  <App notes={notes} />,
-  document.getElementById('root')
-)
+
+ReactDOM.render(<App />, document.getElementById('root'))
